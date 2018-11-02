@@ -44,6 +44,11 @@ class exifExport(QWidget):
 		self.runButton.clicked.connect(self.run_funct)
 
 
+		self.selectAll = QPushButton('Select All')
+		self.selectAll.clicked.connect(lambda: self.select_funct(True))
+		self.deselectAll = QPushButton('Deselect All')
+		self.deselectAll.clicked.connect(lambda: self.select_funct(False))
+		
 		self.renameCheck = QCheckBox('Rename With Datetime', self)
 
 
@@ -56,12 +61,15 @@ class exifExport(QWidget):
 		grid.addWidget(self.pushButtonModel, 2, 0)
 		grid.addWidget(self.lineEditModel, 2, 1)
 
-		grid.addWidget(self.tableModel, 3,0,2,0)
+		grid.addWidget(self.selectAll, 3, 0)
+		grid.addWidget(self.deselectAll, 3, 1)
 
-		grid.addWidget(self.renameCheck, 5, 0)
-		grid.addWidget(self.outputLabel, 6, 0)
-		grid.addWidget(self.fileExport, 6, 1)
-		grid.addWidget(self.runButton, 6, 2)
+		grid.addWidget(self.tableModel, 4,0,2,0)
+
+		grid.addWidget(self.renameCheck, 6, 0)
+		grid.addWidget(self.outputLabel, 7, 0)
+		grid.addWidget(self.fileExport, 7, 1)
+		grid.addWidget(self.runButton, 7, 2)
 
 		self.setLayout(grid)
 		self.show()
@@ -75,6 +83,16 @@ class exifExport(QWidget):
 				checkedList.append(key)
 		print(checkedList)
 
+	def select_funct(self, val):
+		if val:
+			for key in self.modelDict:
+				self.modelDict[key].setCheckState(QtCore.Qt.Checked)
+		else:
+			for key in self.modelDict:
+				self.modelDict[key].setCheckState(QtCore.Qt.Unchecked)
+
+
+
 	def choose_model(self, file):
 		modelFile = QFileDialog.getOpenFileName(self,"", "*.jpg")
 		if Path(modelFile[0]).is_file():
@@ -87,7 +105,7 @@ class exifExport(QWidget):
 			row = 0;
 			for key in tags:
 				#maker note adds a bunch of not useful fields, remove if statement to add back in
-				if 'MakerNote' not in key:
+				if 'JPEG' not in key and 'MakerNote' not in key:
 					self.tableModel.insertRow(row)
 					self.tableModel.setItem(row, 1,  QTableWidgetItem(str(key)))
 					#display converted lat/long
