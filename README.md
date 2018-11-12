@@ -23,4 +23,4 @@ def choose_model(self, file): Fills table with metadata selections
     Ignores some fields (MakerNote, JPEGThumbnail)
 def run_funct(self):  produces output
   Evaluates all choices , modelDict rename, and exports appropriate files
-  
+ 
