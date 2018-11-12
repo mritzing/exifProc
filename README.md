@@ -14,13 +14,13 @@ exifreader to pull data , https://pypi.org/project/ExifRead/
 
 Code Explanation : 
 
-def initUI(self): Creates UI elements
-  Elements (buttons/fields) are created and then connected with appropriate functions
-def choose_model(self, file): Fills table with metadata selections
+##### def initUI(self): Creates UI elements
+Elements (buttons/fields) are created and then connected with appropriate functions
+##### def choose_model(self, file): Fills table with metadata selections
   Takes model file input and uses exifread to pull metadata fields, puts those into modelDict and the qt table
-    modelDict[key] = checkBox , key is the metadata name , checkbox is the connected qt checkbox 
-    Converts lat long automatically
-    Ignores some fields (MakerNote, JPEGThumbnail)
-def run_funct(self):  produces output
+   *  modelDict[key] = checkBox , key is the metadata name , checkbox is the connected qt checkbox 
+   * Converts lat long automatically
+   *  Ignores some fields (MakerNote, JPEGThumbnail)
+##### def run_funct(self):  produces output
   Evaluates all choices , modelDict rename, and exports appropriate files
  
